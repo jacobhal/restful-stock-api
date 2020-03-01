@@ -1,7 +1,6 @@
 # app.py
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
 app = Flask(__name__)
 CORS(app)
 
@@ -35,7 +34,7 @@ def post_something():
     # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
     if param:
         return jsonify({
-            "Message": f"Welcome {name} to our awesome platform!!",
+            "Message": f"Welcome to our awesome platform!!",
             # Add this option to distinct the POST request
             "METHOD" : "POST"
         })
