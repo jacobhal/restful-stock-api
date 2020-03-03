@@ -1,7 +1,23 @@
 # app.py
 from flask import Flask, request, jsonify
+# import alphavantageAPI
+import yahoofinanceAPI
 
 app = Flask(__name__)
+
+@app.route('/getinfo', methods=['GET'])
+def response():
+    # Retrieve the equity from url parameter
+    equity = request.args.get("equity", None)
+    response = {}
+
+    if not equity:
+        response["ERROR"] = "No equity specified."
+    else:
+        info = yahoofinanceAPI.get_info(equity)
+        response["DATA"] = info
+
+    return jsonify(response)    
 
 @app.route('/getmsg/', methods=['GET'])
 def respond():
