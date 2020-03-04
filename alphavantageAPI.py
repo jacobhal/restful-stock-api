@@ -1,3 +1,20 @@
+import yfinance as yf
+import pandas as pd
+import requests
+
+apikey = '2IZ7T22DCQJIF88Y'
+base_url = 'https://www.alphavantage.co/query'
+
+def get_history(equity, function, csv = False):
+    payload = {'function' : function, 'symbol' : equity, 'apikey' : apikey}
+    response = requests.get(base_url, params=payload)
+    return response.json()
+
+def search_alpha(keywords, function):
+    return None
+
+
+
 # urls = {
 #     fetchUrl: '',
 #     apikey: '2IZ7T22DCQJIF88Y',

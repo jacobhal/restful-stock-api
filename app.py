@@ -1,6 +1,6 @@
 # app.py
 from flask import Flask, request, jsonify
-# import alphavantageAPI
+import alphavantageAPI
 import yahoofinanceAPI
 
 app = Flask(__name__)
@@ -34,7 +34,25 @@ def history_response():
         history = yahoofinanceAPI.get_history(equity, period)
         response["DATA"] = history
 
-    return jsonify(response)    
+    return jsonify(response)   
+
+@app.route('/gethistoryalpha', methods=['GET'])
+def history_response_alpha():
+    # Retrieve the equity from url parameter
+    equity = request.args.get("equity", None)
+    function = request.args.get("function", None)
+ 
+    response = {}
+
+    if not equity:
+        response["ERROR"] = "No equity specified."
+    elif not function:
+        response["ERROR"] = "No function specified."
+    else:
+        history = alphavantageAPI.get_history(equity, function)
+        response["DATA"] = history
+
+    return jsonify(response)   
 
 # A welcome message to test our server
 @app.route('/')
