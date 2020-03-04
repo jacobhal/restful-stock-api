@@ -1,62 +1,115 @@
 import yfinance as yf
-
-msft = yf.Ticker("MSFT")
+import pandas as pd
 
 def get_info(equity):
     company = yf.Ticker(equity)
+
+    res = {}
     # get stock info
-    return company.info
+    res["INFO"] = company.info
+    # show actions (dividends, splits)
+    res["ACTIONS"] = company.actions.to_json()
+    res["DIVIDENDS"] = company.dividends.to_json()
+    res["SPLITS"] = company.splits.to_json()
+    res["FINANCIALS"] = company.financials.to_json()
+    res["QUARTERLY_FINANCIALS"] = company.quarterly_financials.to_json()
+    res["MAJOR_HOLDERS"] = company.major_holders.to_json()
+    res["INSTITUTIONAL_HOLDERS"] = company.institutional_holders.to_json()
+    res["BALANCE_SHEET"] = company.balance_sheet.to_json()
+    res["QUARTERLY_BALANCE_SHEET"] = company.quarterly_balance_sheet.to_json()
+    res["CASHFLOW"] = company.cashflow.to_json()
+    res["QUARTERLY_CASHFLOW"] = company.quarterly_cashflow.to_json()
+    res["EARNINGS"] = company.earnings.to_json()
+    res["QUARTERLY_EARNINGS"] = company.quarterly_earnings.to_json()
+    res["SUSTAINABILITY"] = company.sustainability.to_json()
+    company.recommendations.reset_index(inplace=True)
+    res["RECOMMENDATIONS"] = company.recommendations.to_json()
+    res["CALENDAR"] = company.calendar.to_json()
+    res["ISIN"] = company.isin
+    res["OPTIONS"] = company.options
+    
+    return res
 
-# get historical market data
-hist = msft.history(period="max")
+def get_history(equity, period):
+    company = yf.Ticker(equity)
+    # get historical market data
+    return company.history(period=period).to_json()
 
-# show actions (dividends, splits)
-msft.actions
+def get_actions(equity):
+    company = yf.Ticker(equity)
+    return company.actions
 
-# show dividends
-msft.dividends
+def get_dividends(equity):
+    company = yf.Ticker(equity)
+    return company.dividends
 
-# show splits
-msft.splits
+def get_splits(equity):
+    company = yf.Ticker(equity)
+    return company.splits
 
-# show financials
-msft.financials
-msft.quarterly_financials
+def get_financials(equity):
+    company = yf.Ticker(equity)
+    return company.financials
 
-# show major holders
-# stock.major_holders
+def get_quarterly_financials(equity):
+    company = yf.Ticker(equity)
+    return company.quarterly_financials
 
-# show institutional holders
-# stock.institutional_holders
+def get_major_holders(equity):
+    company = yf.Ticker(equity)
+    return company.major_holders
 
-# show balance heet
-msft.balance_sheet
-msft.quarterly_balance_sheet
+def get_institutional_holders(equity):
+    company = yf.Ticker(equity)
+    return company.institutional_holders
 
-# show cashflow
-msft.cashflow
-msft.quarterly_cashflow
+def get_balance_sheet(equity):
+    company = yf.Ticker(equity)
+    return company.balance_sheet
 
-# show earnings
-msft.earnings
-msft.quarterly_earnings
+def get_quarterly_balance_sheet(equity):
+    company = yf.Ticker(equity)
+    return company.quarterly_balance_sheet
 
-# show sustainability
-msft.sustainability
+def get_cashflow(equity):
+    company = yf.Ticker(equity)
+    return company.cashflow
 
-# show analysts recommendations
-msft.recommendations
+def get_quarterly_cashflow(equity):
+    company = yf.Ticker(equity)
+    return company.quarterly_cashflow
 
-# show next event (earnings, etc)
-msft.calendar
+def get_earnings(equity):
+    company = yf.Ticker(equity)
+    return company.earnings
 
-# show ISIN code - *experimental*
-# ISIN = International Securities Identification Number
-msft.isin
+def get_quarterly_earnings(equity):
+    company = yf.Ticker(equity)
+    return company.financials
 
-# show options expirations
-msft.options
+def get_sustainability(equity):
+    company = yf.Ticker(equity)
+    return company.sustainability
 
-# get option chain for specific expiration
-# opt = msft.option_chain('YYYY-MM-DD')
-# data available via: opt.calls, opt.puts
+def get_recommendations(equity):
+    company = yf.Ticker(equity)
+    return company.recommendations
+
+def get_calendar(equity):
+    company = yf.Ticker(equity)
+    return company.calendar
+
+def get_isin(equity):
+    company = yf.Ticker(equity)
+    return company.isin
+
+def get_options(equity):
+    company = yf.Ticker(equity)
+    return company.options
+
+def option_chain(equity, expiration):
+    company = yf.Ticker(equity)
+    # # get option chain for specific expiration
+    opt = company.option_chain(expiration)
+    # # data available via: opt.calls, opt.puts
+

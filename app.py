@@ -6,7 +6,7 @@ import yahoofinanceAPI
 app = Flask(__name__)
 
 @app.route('/getinfo', methods=['GET'])
-def response():
+def info_response():
     # Retrieve the equity from url parameter
     equity = request.args.get("equity", None)
     response = {}
@@ -19,49 +19,27 @@ def response():
 
     return jsonify(response)    
 
-@app.route('/getmsg/', methods=['GET'])
-def respond():
-    # Retrieve the name from url parameter
-    name = request.args.get("name", None)
-
-    # For debugging
-    print(f"got name {name}")
-
+@app.route('/gethistory', methods=['GET'])
+def history_response():
+    # Retrieve the equity from url parameter
+    equity = request.args.get("equity", None)
+    period = request.args.get("period", None)
+    if period is None:
+        period = "max"
     response = {}
 
-    # Check if user sent a name at all
-    if not name:
-        response["ERROR"] = "no name found, please send a name."
-    # Check if the user entered a number not a name
-    elif str(name).isdigit():
-        response["ERROR"] = "name can't be numeric."
-    # Now the user entered a valid name
+    if not equity:
+        response["ERROR"] = "No equity specified."
     else:
-        response["MESSAGE"] = f"Welcome {name} to our awesome platform!!"
+        history = yahoofinanceAPI.get_history(equity, period)
+        response["DATA"] = history
 
-    # Return the response in json format
-    return jsonify(response)
-
-@app.route('/post/', methods=['POST'])
-def post_something():
-    param = request.form.get('name')
-    print(param)
-    # You can add the test cases you made in the previous function, but in our case here you are just testing the POST functionality
-    if param:
-        return jsonify({
-            "Message": f"Welcome to our awesome platform!!",
-            # Add this option to distinct the POST request
-            "METHOD" : "POST"
-        })
-    else:
-        return jsonify({
-            "ERROR": "no name found, please send a name."
-        })
+    return jsonify(response)    
 
 # A welcome message to test our server
 @app.route('/')
 def index():
-    return "<h1>Welcome to our server !!</h1>"
+    return "<h1>This is a financial stock API</h1>"
 
 @app.after_request
 def after_request(response):
