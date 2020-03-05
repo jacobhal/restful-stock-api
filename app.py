@@ -1,5 +1,6 @@
 # app.py
 from flask import Flask, request, jsonify
+import yahoofinanceAPI
 
 app = Flask(__name__)
 
