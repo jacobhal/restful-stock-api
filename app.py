@@ -1,11 +1,15 @@
 # app.py
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import alphavantageAPI
 import yahoofinanceAPI
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/getinfo', methods=['GET'])
+@cross_origin()
 def info_response():
     # Retrieve the equity from url parameter
     equity = request.args.get("equity", None)
@@ -20,6 +24,7 @@ def info_response():
     return jsonify(response)    
 
 @app.route('/search', methods=['GET'])
+@cross_origin()
 def search_response():
     # Retrieve the equity from url parameter
     keywords = request.args.get("keywords", None)
@@ -34,6 +39,7 @@ def search_response():
     return jsonify(response)   
 
 @app.route('/gethistory', methods=['GET'])
+@cross_origin()
 def history_response():
     # Retrieve the equity from url parameter
     equity = request.args.get("equity", None)
@@ -51,6 +57,7 @@ def history_response():
     return jsonify(response)   
 
 @app.route('/gethistoryalpha', methods=['GET'])
+@cross_origin()
 def history_response_alpha():
     # Retrieve the equity from url parameter
     equity = request.args.get("equity", None)
@@ -70,10 +77,12 @@ def history_response_alpha():
 
 # A welcome message to test our server
 @app.route('/')
+@cross_origin()
 def index():
     return "<h1>This is a financial stock API</h1>"
 
 @app.after_request
+@cross_origin()
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
