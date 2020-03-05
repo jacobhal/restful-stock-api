@@ -1,4 +1,5 @@
 import yfinance as yf
+import pandas as pd
 
 def get_info(equity):
     company = yf.Ticker(equity)
