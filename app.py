@@ -19,6 +19,20 @@ def info_response():
 
     return jsonify(response)    
 
+@app.route('/search', methods=['GET'])
+def search_response():
+    # Retrieve the equity from url parameter
+    keywords = request.args.get("keywords", None)
+    response = {}
+
+    if not keywords:
+        response["ERROR"] = "No search keywords specified."
+    else:
+        search_results = alphavantageAPI.search(keywords)
+        response["DATA"] = search_results
+
+    return jsonify(response)   
+
 @app.route('/gethistory', methods=['GET'])
 def history_response():
     # Retrieve the equity from url parameter
