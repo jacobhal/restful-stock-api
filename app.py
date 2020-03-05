@@ -15,7 +15,7 @@ def info_response():
         res["ERROR"] = "No equity specified."
     else:
         # info = yahoofinanceAPI.get_info(equity)
-        # res["DATA"] = info
+        res["DATA"] = 'info'
 
     response = jsonify(res)
     return response   
@@ -48,7 +48,7 @@ def history_response():
         res["ERROR"] = "No equity specified."
     else:
         # history = yahoofinanceAPI.get_history(equity, period)
-        # res["DATA"] = history
+        res["DATA"] = 'history'
 
     response = jsonify(res)
     return response  
