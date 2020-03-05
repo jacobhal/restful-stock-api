@@ -5,7 +5,7 @@ import yahoofinanceAPI
 
 app = Flask(__name__)
 
-@app.route('/getinformation', methods=['GET'])
+@app.route('/getinfo', methods=['GET'])
 def info_response():
     # Retrieve the equity from url parameter
     equity = request.args.get("equity", None)
