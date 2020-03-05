@@ -1,4 +1,4 @@
-# import requests
+import requests
 
 apikey = '2IZ7T22DCQJIF88Y'
 base_url = 'https://www.alphavantage.co/query'
@@ -7,15 +7,15 @@ def get_history(equity, function, csv = False):
     payload = {'function' : function, 'symbol' : equity, 'apikey' : apikey}
     if csv:
         payload['datatype'] = 'csv'
-    response = 'hej'#requests.get(base_url, params=payload)
-    return response
+    response = requests.get(base_url, params=payload)
+    return response.json()
 
 def search(keywords, csv = False):
     payload = {'function' : "SYMBOL_SEARCH", 'keywords' : keywords, 'apikey' : apikey}
     if csv:
         payload['datatype'] = 'csv'
-    response =  'hej'#requests.get(base_url, params=payload)
-    return response
+    response = requests.get(base_url, params=payload)
+    return response.json()
 
 
 # urls = {
