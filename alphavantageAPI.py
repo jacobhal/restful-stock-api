@@ -1,5 +1,3 @@
-import yfinance as yf
-import pandas as pd
 import requests
 
 apikey = '2IZ7T22DCQJIF88Y'
@@ -18,7 +16,6 @@ def search(keywords, csv = False):
         payload['datatype'] = 'csv'
     response = requests.get(base_url, params=payload)
     return response.json()
-
 
 
 # urls = {
