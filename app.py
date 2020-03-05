@@ -1,15 +1,12 @@
 # app.py
 from flask import Flask, request, jsonify
-import alphavantageAPI
-import yahoofinanceAPI
 
 app = Flask(__name__)
 
 # A welcome message to test our server
 @app.route('/')
 def index():
-    response = jsonify({'DATA': '<h1>This is a financial stock API</h1>'})
-    return response
+    return 'HEJ!!!'
 
 @app.after_request
 def after_request(response):
