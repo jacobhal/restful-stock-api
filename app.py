@@ -13,30 +13,34 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def info_response():
     # Retrieve the equity from url parameter
     equity = request.args.get("equity", None)
-    response = {}
+    res = {}
 
     if not equity:
-        response["ERROR"] = "No equity specified."
+        res["ERROR"] = "No equity specified."
     else:
         info = yahoofinanceAPI.get_info(equity)
-        response["DATA"] = info
+        res["DATA"] = info
 
-    return jsonify(response)    
+    response = jsonify(res)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response   
 
 @app.route('/search', methods=['GET'])
 @cross_origin()
 def search_response():
     # Retrieve the equity from url parameter
     keywords = request.args.get("keywords", None)
-    response = {}
+    res = {}
 
     if not keywords:
-        response["ERROR"] = "No search keywords specified."
+        res["ERROR"] = "No search keywords specified."
     else:
         search_results = alphavantageAPI.search(keywords)
-        response["DATA"] = search_results
+        res["DATA"] = search_results
 
-    return jsonify(response)   
+    response = jsonify(res)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response 
 
 @app.route('/gethistory', methods=['GET'])
 @cross_origin()
@@ -46,15 +50,17 @@ def history_response():
     period = request.args.get("period", None)
     if period is None:
         period = "max"
-    response = {}
+    res = {}
 
     if not equity:
-        response["ERROR"] = "No equity specified."
+        res["ERROR"] = "No equity specified."
     else:
         history = yahoofinanceAPI.get_history(equity, period)
-        response["DATA"] = history
+        res["DATA"] = history
 
-    return jsonify(response)   
+    response = jsonify(res)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response  
 
 @app.route('/gethistoryalpha', methods=['GET'])
 @cross_origin()
@@ -63,26 +69,29 @@ def history_response_alpha():
     equity = request.args.get("equity", None)
     function = request.args.get("function", None)
  
-    response = {}
+    res = {}
 
     if not equity:
-        response["ERROR"] = "No equity specified."
+        res["ERROR"] = "No equity specified."
     elif not function:
-        response["ERROR"] = "No function specified."
+        res["ERROR"] = "No function specified."
     else:
         history = alphavantageAPI.get_history(equity, function)
-        response["DATA"] = history
+        res["DATA"] = history
 
-    return jsonify(response)   
+    response = jsonify(res)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # A welcome message to test our server
 @app.route('/')
 @cross_origin()
 def index():
-    return "<h1>This is a financial stock API</h1>"
+    response = jsonify({'DATA': '<h1>This is a financial stock API</h1>'})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.after_request
-@cross_origin()
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
