@@ -1,17 +1,19 @@
 import requests
-import config
+import os
+
+api_key = os.environ.get('API_KEY', None)
 
 base_url = 'https://www.alphavantage.co/query'
 
 def get_history(equity, function, csv = False):
-    payload = {'function' : function, 'symbol' : equity, 'apikey' : config.api_key}
+    payload = {'function' : function, 'symbol' : equity, 'apikey' : api_key}
     if csv:
         payload['datatype'] = 'csv'
     response = requests.get(base_url, params=payload)
     return response.json()
 
 def search(keywords, csv = False):
-    payload = {'function' : "SYMBOL_SEARCH", 'keywords' : keywords, 'apikey' : config.api_key}
+    payload = {'function' : "SYMBOL_SEARCH", 'keywords' : keywords, 'apikey' : api_key}
     if csv:
         payload['datatype'] = 'csv'
     response = requests.get(base_url, params=payload)
