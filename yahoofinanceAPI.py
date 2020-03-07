@@ -30,7 +30,7 @@ def get_info(equity):
         res["CALENDAR"] = company.calendar.to_json()
         res["ISIN"] = company.isin
         res["OPTIONS"] = company.options
-    except ValueError:
+    except:
         res["ERROR"] = "Equity does not exist."
     
     return res
