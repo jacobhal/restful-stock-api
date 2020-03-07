@@ -1,32 +1,37 @@
 import yfinance as yf
 import pandas as pd
+import sys
 
 def get_info(equity):
-    company = yf.Ticker(equity)
-
+    
     res = {}
-    # get stock info
-    res["INFO"] = company.info
-    # show actions (dividends, splits)
-    res["ACTIONS"] = company.actions.to_json()
-    res["DIVIDENDS"] = company.dividends.to_json()
-    res["SPLITS"] = company.splits.to_json()
-    res["FINANCIALS"] = company.financials.to_json()
-    res["QUARTERLY_FINANCIALS"] = company.quarterly_financials.to_json()
-    res["MAJOR_HOLDERS"] = company.major_holders.to_json()
-    res["INSTITUTIONAL_HOLDERS"] = company.institutional_holders.to_json()
-    res["BALANCE_SHEET"] = company.balance_sheet.to_json()
-    res["QUARTERLY_BALANCE_SHEET"] = company.quarterly_balance_sheet.to_json()
-    res["CASHFLOW"] = company.cashflow.to_json()
-    res["QUARTERLY_CASHFLOW"] = company.quarterly_cashflow.to_json()
-    res["EARNINGS"] = company.earnings.to_json()
-    res["QUARTERLY_EARNINGS"] = company.quarterly_earnings.to_json()
-    res["SUSTAINABILITY"] = company.sustainability.to_json()
-    company.recommendations.reset_index(inplace=True)
-    res["RECOMMENDATIONS"] = company.recommendations.to_json()
-    res["CALENDAR"] = company.calendar.to_json()
-    res["ISIN"] = company.isin
-    res["OPTIONS"] = company.options
+    try:
+        company = yf.Ticker(equity)
+
+        # get stock info
+        res["INFO"] = company.info
+        # show actions (dividends, splits)
+        res["ACTIONS"] = company.actions.to_json()
+        res["DIVIDENDS"] = company.dividends.to_json()
+        res["SPLITS"] = company.splits.to_json()
+        res["FINANCIALS"] = company.financials.to_json()
+        res["QUARTERLY_FINANCIALS"] = company.quarterly_financials.to_json()
+        res["MAJOR_HOLDERS"] = company.major_holders.to_json()
+        res["INSTITUTIONAL_HOLDERS"] = company.institutional_holders.to_json()
+        res["BALANCE_SHEET"] = company.balance_sheet.to_json()
+        res["QUARTERLY_BALANCE_SHEET"] = company.quarterly_balance_sheet.to_json()
+        res["CASHFLOW"] = company.cashflow.to_json()
+        res["QUARTERLY_CASHFLOW"] = company.quarterly_cashflow.to_json()
+        res["EARNINGS"] = company.earnings.to_json()
+        res["QUARTERLY_EARNINGS"] = company.quarterly_earnings.to_json()
+        res["SUSTAINABILITY"] = company.sustainability.to_json()
+        company.recommendations.reset_index(inplace=True)
+        res["RECOMMENDATIONS"] = company.recommendations.to_json()
+        res["CALENDAR"] = company.calendar.to_json()
+        res["ISIN"] = company.isin
+        res["OPTIONS"] = company.options
+    except ValueError:
+        res["ERROR"] = "Equity does not exist."
     
     return res
 
