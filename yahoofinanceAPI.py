@@ -5,6 +5,7 @@ import sys
 def get_info(equity):
     
     res = {}
+    success = False
     try:
         company = yf.Ticker(equity)
 
@@ -30,15 +31,22 @@ def get_info(equity):
         res["CALENDAR"] = company.calendar.to_json()
         res["ISIN"] = company.isin
         res["OPTIONS"] = company.options
+        success = True
     except:
-        res["ERROR"] = "Equity does not exist."
+        res["ERROR"] = "Something went wrong... (the requested equity might not exist)."
     
-    return res
+    return res, success
 
 def get_history(equity, period):
-    company = yf.Ticker(equity)
-    # get historical market data
-    return company.history(period=period).to_json()
+    res = {}
+    try:
+        company = yf.Ticker(equity)
+         # get historical market data
+        return company.history(period=period).to_json(), True
+    except:
+        res["ERROR"] = "Something went wrong... (the requested equity might not exist)."
+        return res, False
+
 
 def get_actions(equity):
     company = yf.Ticker(equity)

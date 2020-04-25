@@ -9,15 +9,27 @@ def get_history(equity, function, csv = False):
     payload = {'function' : function, 'symbol' : equity, 'apikey' : api_key}
     if csv:
         payload['datatype'] = 'csv'
-    response = requests.get(base_url, params=payload)
-    return response.json()
+    response = {}
+    success = False
+    try:
+        response = requests.get(base_url, params=payload)
+        success = True
+    except:
+        response["ERROR"] = "Something went wrong..."
+    return response.json(), success
 
 def search(keywords, csv = False):
     payload = {'function' : "SYMBOL_SEARCH", 'keywords' : keywords, 'apikey' : api_key}
     if csv:
         payload['datatype'] = 'csv'
-    response = requests.get(base_url, params=payload)
-    return response.json()
+    response = {}
+    success = False
+    try:
+        response = requests.get(base_url, params=payload)
+        success = True
+    except:
+        response["ERROR"] = "Something went wrong..."
+    return response.json(), success
 
 
 # urls = {
