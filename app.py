@@ -9,7 +9,6 @@ from flask_marshmallow import Marshmallow
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_CONNECTION_STRING', None)
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 19
-app.config['SQLALCHEMY_POOL_TIMEOUT'] = 19
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
