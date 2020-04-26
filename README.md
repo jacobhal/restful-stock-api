@@ -8,7 +8,7 @@ cd to the root directory to be able to run the following scrips:
 
 ### `python app.py`
 
-Run the server locally for testing purposes.
+Run the server locally for testing purposes. You should use heroku local over this.
 
 ### `source venv/bin/activate`
 
@@ -32,7 +32,8 @@ api_key = os.environ.get('API_KEY', None)
 
 ### `heroku local`
 
-Loads the .env and server locally so you can test your config vars.
+Loads the .env and server locally so you can test your config vars. This is the default way to test the API locally.
+This starts a server at http://127.0.0.1:5000/ by default.
 
 
 
