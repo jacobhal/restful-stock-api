@@ -16,6 +16,8 @@ def get_history(equity, function, csv = False):
         success = True
     except:
         response["ERROR"] = "Something went wrong..."
+    if "Error Message" in response:
+        success = False
     return response.json(), success
 
 def search(keywords, csv = False):
@@ -29,6 +31,8 @@ def search(keywords, csv = False):
         success = True
     except:
         response["ERROR"] = "Something went wrong..."
+    if "Error Message" in response:
+        success = False
     return response.json(), success
 
 
