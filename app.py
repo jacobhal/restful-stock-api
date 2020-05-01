@@ -47,12 +47,11 @@ def info_response():
     else:
         info, success = yahoofinanceAPI.get_info(equity)
         res["DATA"] = info
-    response = jsonify(res)
 
     if success: 
         update_or_add_stock(equity, 'info', info)
 
-    return response   
+    return res   
 
 @app.route('/search', methods=['GET'])
 def search_response():
@@ -65,9 +64,8 @@ def search_response():
     else:
         search_results, success = alphavantageAPI.search(keywords)
         res["DATA"] = search_results
-    response = jsonify(res)
     
-    return response 
+    return res 
 
 @app.route('/gethistory', methods=['GET'])
 def history_response():
@@ -84,12 +82,11 @@ def history_response():
     else:
         history, success = yahoofinanceAPI.get_history(equity, period)
         res["DATA"] = history
-    response = jsonify(res)
 
     if success: 
         update_or_add_stock(equity, 'history', history)
 
-    return response  
+    return res  
 
 @app.route('/gethistoryalpha', methods=['GET'])
 def history_response_alpha():
@@ -107,12 +104,11 @@ def history_response_alpha():
     else:
         history, success = alphavantageAPI.get_history(equity, function)
         res["DATA"] = history
-    response = jsonify(res)
 
     if success: 
         update_or_add_stock(equity, 'history_alpha', history)
 
-    return response
+    return res
 
 @app.route('/')
 def index():
