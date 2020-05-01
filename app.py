@@ -16,7 +16,7 @@ from models import (Stock, StockSchema)
 
 def update_or_add_stock(equity, field, data):
     equity = equity.upper()
-    existing_stock = db.session.query(Stock).filter(Stock.equity == equity).one()
+    existing_stock = db.session.query(Stock).filter(Stock.equity == equity).first()
     if existing_stock is None:
         if field == 'info':
             stock = Stock(equity=equity, info=data)
