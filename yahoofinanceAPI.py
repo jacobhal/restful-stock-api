@@ -32,6 +32,7 @@ def get_info(equity):
         company.recommendations.reset_index(inplace=True)
         res["RECOMMENDATIONS"] = json.loads(company.recommendations.to_json())
         res["CALENDAR"] = json.loads(company.calendar.to_json())
+        res["HISTORY"] = json.loads(company.history(period='max').to_json())
         res["ISIN"] = company.isin
         res["OPTIONS"] = company.options
         success = True
