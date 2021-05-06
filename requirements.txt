@@ -14,7 +14,7 @@ typed-ast==1.4.1
 Werkzeug==1.0.0
 wrapt==1.11.2
 requests==2.23.0
-Flask-Cors==3.0.4
+Flask-Cors==3.0.9
 pandas==1.0.1
 numpy==1.18.1
 lxml==4.5.0
