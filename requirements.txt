@@ -16,7 +16,7 @@ wrapt==1.11.2
 requests==2.23.0
 Flask-Cors==3.0.4
 pandas==1.0.1
-numpy==1.18.1
+numpy==1.22.0
 lxml==4.5.0
 html5lib==1.0.1
 bs4==0.0.1
